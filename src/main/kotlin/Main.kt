@@ -1,5 +1,12 @@
 package org.example
 
+import java.io.FileNotFoundException
+
 fun main() {
-    println("Hello World!")
+    val file = "/roms/" + readLine()
+    try {
+
+    } catch (e: FileNotFoundException) {
+        println("Please provide a rom that exists")
+    }
 }
