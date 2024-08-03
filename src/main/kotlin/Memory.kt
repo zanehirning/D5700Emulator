@@ -1,6 +1,6 @@
 package org.example
 
 interface Memory {
-    fun read()
+    fun read(address: Int)
     fun write()
 }
