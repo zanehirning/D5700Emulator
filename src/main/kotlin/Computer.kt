@@ -1,11 +1,11 @@
 package org.example
 
-import Instructions.Instruction
+import operations.Instruction
+import Nibbles
 import RAM
 import ROM
 import java.io.File
 import java.io.FileNotFoundException
-import java.io.FileReader
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.TimeUnit
@@ -20,7 +20,6 @@ class Computer {
     val instructions = arrayOf<Instruction>(
 
     )
-
     private val executor = Executors.newSingleThreadScheduledExecutor()
     var cpuFuture: ScheduledFuture<*>? = null
     var timerFuture: ScheduledFuture<*>? = null
@@ -43,7 +42,20 @@ class Computer {
 
     fun startCPU() {
         val cpuRunnable = Runnable {
-            // TODO: Get the next instruction and run it
+            try {
+                val byte1 = rom.read(cpu.p)
+                val byte2 = rom.read((cpu.p + 1u).toUShort())
+                if (byte1.toInt() == 0 && byte2.toInt() == 0) {
+                    stop()
+                    return@Runnable
+                }
+                // TODO: execute instruction
+                val nibbles = Nibbles(byte1, byte2)
+                instructions[nibbles.getFirstNibble().toInt()].execute(cpu, nibbles)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                stop()
+            }
         }
         val timerRunnable = Runnable {
             if (cpu.t.toInt() != 0) {

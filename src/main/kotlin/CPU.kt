@@ -5,5 +5,6 @@ class CPU {
     var t: UByte = 0u
     var a: UShort = 0u
     var m: Int = 0
-    var registers = ByteArray(8)
+    @OptIn(ExperimentalUnsignedTypes::class)
+    var registers = UByteArray(8)
 }
