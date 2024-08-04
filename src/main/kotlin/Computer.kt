@@ -1,5 +1,6 @@
 package org.example
 
+import Instructions.Instruction
 import RAM
 import ROM
 import java.io.File
@@ -14,9 +15,11 @@ class Computer {
 
     val rom: ROM = ROM()
     val ram: RAM = RAM()
-    val memories = arrayOf(rom, ram) // use the cpu flag to decide which memory to use
+    val memories = arrayOf(rom, ram)
     val cpu: CPU = CPU()
-    // val instructions (Array of instructions)
+    val instructions = arrayOf<Instruction>(
+
+    )
 
     private val executor = Executors.newSingleThreadScheduledExecutor()
     var cpuFuture: ScheduledFuture<*>? = null
@@ -35,14 +38,7 @@ class Computer {
 
     @OptIn(ExperimentalUnsignedTypes::class)
     private fun readRom() {
-        var count = 0
-        romFile.forEachLine {
-            rom.memory[count] = it.substring(0,2).lowercase().toInt(16).toUByte()
-            println(rom.memory[count])
-            count ++
-            rom.memory[count] = it.substring(2,4).lowercase().toInt(16).toUByte()
-            count ++
-        }
+        romFile.readBytes().toUByteArray().copyInto(rom.memory)
     }
 
     fun startCPU() {

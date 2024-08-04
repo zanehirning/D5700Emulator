@@ -1,6 +1,9 @@
 package org.example
 
-interface Memory {
-    fun read(address: Int)
-    fun write()
+abstract class Memory {
+    val memory = UByteArray(4000)
+    fun read(address: Int): UByte {
+        return memory[address]
+    }
+    abstract fun write()
 }
