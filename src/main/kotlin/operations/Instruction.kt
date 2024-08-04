@@ -1,13 +1,13 @@
 package operations
 
 import Nibbles
-import org.example.CPU
+import org.example.Computer
 
 abstract class Instruction {
-    fun execute(cpu: CPU, nibbles: Nibbles) {
+    fun execute(computer: Computer, nibbles: Nibbles) {
         parseBytes(nibbles)
-        performOperation(cpu)
+        performOperation(computer)
     }
     abstract fun parseBytes(nibbles: Nibbles)
-    abstract fun performOperation(cpu: CPU)
+    abstract fun performOperation(computer: Computer)
 }

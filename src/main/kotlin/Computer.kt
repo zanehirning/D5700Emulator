@@ -15,7 +15,7 @@ class Computer {
 
     val rom: ROM = ROM()
     val ram: RAM = RAM()
-    val memories = arrayOf(rom, ram)
+    val memories = arrayOf(ram, rom)
     val cpu: CPU = CPU()
     val instructions = arrayOf<Instruction>(
 
@@ -51,7 +51,7 @@ class Computer {
                 }
                 // TODO: execute instruction
                 val nibbles = Nibbles(byte1, byte2)
-                instructions[nibbles.getFirstNibble().toInt()].execute(cpu, nibbles)
+                instructions[nibbles.getFirstNibble().toInt()].execute(this, nibbles)
             } catch (e: Exception) {
                 e.printStackTrace()
                 stop()
