@@ -49,7 +49,6 @@ class Computer {
                     stop()
                     return@Runnable
                 }
-                // TODO: execute instruction
                 val nibbles = Nibbles(byte1, byte2)
                 instructions[nibbles.getFirstNibble().toInt()].execute(this, nibbles)
             } catch (e: Exception) {

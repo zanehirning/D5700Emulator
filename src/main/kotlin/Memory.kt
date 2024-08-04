@@ -5,5 +5,5 @@ abstract class Memory {
     fun read(address: UShort): UByte {
         return memory[address.toInt()]
     }
-    abstract fun write()
+    abstract fun write(address: UShort, value: UByte)
 }
