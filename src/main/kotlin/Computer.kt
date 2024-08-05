@@ -39,8 +39,8 @@ class Computer {
     )
     val screen: Screen = Screen()
     private val executor = Executors.newSingleThreadScheduledExecutor()
-    var cpuFuture: ScheduledFuture<*>? = null
-    var timerFuture: ScheduledFuture<*>? = null
+    private var cpuFuture: ScheduledFuture<*>? = null
+    private var timerFuture: ScheduledFuture<*>? = null
 
     init {
         println("Please enter the file you would like to run:")
