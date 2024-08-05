@@ -11,6 +11,7 @@ class ReadKeyboard : Instruction() {
 
     @OptIn(ExperimentalUnsignedTypes::class)
     override fun performOperation(computer: Computer) {
+        println("Waiting for keyboard input")
         var input = readlnOrNull()
         computer.cpu.p = (computer.cpu.p + 2u).toUShort()
         if (input == null || input == "") {

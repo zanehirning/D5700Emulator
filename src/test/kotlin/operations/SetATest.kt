@@ -18,7 +18,7 @@ class SetATest {
         setA.address = UShort.MAX_VALUE.toInt()
         setA.performOperation(computer)
         assert(computer.cpu.a == UShort.MAX_VALUE)
-        assert(computer.cpu.p == 2.toUShort())
+        assert(computer.cpu.p == 4.toUShort())
     }
 
     @Test

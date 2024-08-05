@@ -1,14 +1,16 @@
 package org.example
 
-import operations.Instruction
 import Nibbles
 import RAM
 import ROM
+import Screen
+import operations.*
 import java.io.File
 import java.io.FileNotFoundException
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.TimeUnit
+import kotlin.system.exitProcess
 
 class Computer {
     private lateinit var romFile: File
@@ -17,9 +19,25 @@ class Computer {
     val ram: RAM = RAM()
     val memories = arrayOf(ram, rom)
     val cpu: CPU = CPU()
-    val instructions = arrayOf<Instruction>(
-
+    val instructions = arrayOf(
+        Store(),
+        Add(),
+        Sub(),
+        Read(),
+        Write(),
+        Jump(),
+        ReadKeyboard(),
+        SwitchMemory(),
+        SkipEqual(),
+        SkipNotEqual(),
+        SetA(),
+        SetT(),
+        ReadT(),
+        ConvertToBaseTen(),
+        ConvertByteToAscii(),
+        Draw()
     )
+    val screen: Screen = Screen()
     private val executor = Executors.newSingleThreadScheduledExecutor()
     var cpuFuture: ScheduledFuture<*>? = null
     var timerFuture: ScheduledFuture<*>? = null
@@ -30,6 +48,7 @@ class Computer {
         try {
             romFile = File(file)
             readRom()
+            startCPU()
         } catch (e: FileNotFoundException) {
             println("Please provide a rom that exists")
         }
@@ -71,7 +90,7 @@ class Computer {
         timerFuture = executor.scheduleAtFixedRate(
             timerRunnable,
             0,
-            1000L,
+            20L,
             TimeUnit.MILLISECONDS
         )
     }
@@ -83,5 +102,6 @@ class Computer {
     fun stop() {
         cpuFuture?.cancel(true)
         timerFuture?.cancel(true)
+        exitProcess(0)
     }
 }
