@@ -90,7 +90,7 @@ class Computer {
         timerFuture = executor.scheduleAtFixedRate(
             timerRunnable,
             0,
-            20L,
+            1000/60L,
             TimeUnit.MILLISECONDS
         )
     }
